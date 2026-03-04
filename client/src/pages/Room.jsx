@@ -191,6 +191,12 @@ export default function Room() {
     copyText(url, "link");
   }
 
+  function copyAll() {
+    if (messages.length === 0) return;
+    const allText = messages.map((msg) => msg.text).join("\n\n");
+    copyText(allText, "all");
+  }
+
   function formatTime(ts) {
     return new Date(ts).toLocaleTimeString([], {
       hour: "2-digit",
@@ -244,6 +250,28 @@ export default function Room() {
           {copied === "link" ? "Copied!" : "Share Link"}
         </button>
       </header>
+
+      {/* Messages toolbar */}
+      {messages.length > 0 && (
+        <div className="flex items-center justify-end px-4 py-1.5 bg-gray-900/50 border-b border-gray-800/50 shrink-0">
+          <button
+            onClick={copyAll}
+            className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-200 transition-colors"
+          >
+            {copied === "all" ? (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-400"><path d="M20 6 9 17l-5-5"/></svg>
+                <span className="text-green-400">Copied all!</span>
+              </>
+            ) : (
+              <>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                Copy All
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
