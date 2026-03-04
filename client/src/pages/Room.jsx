@@ -206,12 +206,12 @@ export default function Room() {
 
   if (error && !messages.length) {
     return (
-      <div className="min-h-screen bg-gray-950 text-gray-100 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gray-50 text-gray-900 flex items-center justify-center p-4">
         <div className="text-center">
-          <p className="text-red-400 mb-4">{error}</p>
+          <p className="text-red-500 mb-4">{error}</p>
           <button
             onClick={() => navigate("/")}
-            className="text-blue-400 hover:text-blue-300 underline"
+            className="text-blue-600 hover:text-blue-700 underline"
           >
             Back to Home
           </button>
@@ -221,12 +221,12 @@ export default function Room() {
   }
 
   return (
-    <div className="h-screen bg-gray-950 text-gray-100 flex flex-col">
+    <div className="h-screen bg-gray-50 text-gray-900 flex flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between px-4 py-3 bg-gray-900 border-b border-gray-800 shrink-0">
+      <header className="flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200 shrink-0">
         <button
           onClick={() => navigate("/")}
-          className="text-gray-400 hover:text-gray-200 text-sm"
+          className="text-gray-500 hover:text-gray-700 text-sm"
         >
           &larr; Home
         </button>
@@ -235,9 +235,9 @@ export default function Room() {
           <span className="font-mono text-lg font-bold">{roomCode}</span>
           <span className="ml-3 text-xs text-gray-500">
             {connected ? (
-              <span className="text-green-400">&#9679;</span>
+              <span className="text-green-500">&#9679;</span>
             ) : (
-              <span className="text-red-400">&#9679;</span>
+              <span className="text-red-500">&#9679;</span>
             )}{" "}
             {userCount}/10
           </span>
@@ -245,7 +245,7 @@ export default function Room() {
 
         <button
           onClick={copyLink}
-          className="text-sm text-blue-400 hover:text-blue-300"
+          className="text-sm text-blue-600 hover:text-blue-700"
         >
           {copied === "link" ? "Copied!" : "Share Link"}
         </button>
@@ -253,15 +253,15 @@ export default function Room() {
 
       {/* Messages toolbar */}
       {messages.length > 0 && (
-        <div className="flex items-center justify-end px-4 py-1.5 bg-gray-900/50 border-b border-gray-800/50 shrink-0">
+        <div className="flex items-center justify-end px-4 py-1.5 bg-white/60 border-b border-gray-200 shrink-0">
           <button
             onClick={copyAll}
-            className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-200 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 transition-colors"
           >
             {copied === "all" ? (
               <>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-400"><path d="M20 6 9 17l-5-5"/></svg>
-                <span className="text-green-400">Copied all!</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-green-500"><path d="M20 6 9 17l-5-5"/></svg>
+                <span className="text-green-500">Copied all!</span>
               </>
             ) : (
               <>
@@ -276,7 +276,7 @@ export default function Room() {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.length === 0 && (
-          <p className="text-gray-600 text-center text-sm mt-8">
+          <p className="text-gray-400 text-center text-sm mt-8">
             No messages yet. Paste something below to share.
           </p>
         )}
@@ -286,22 +286,22 @@ export default function Room() {
             key={i}
             className={`rounded-lg ${
               msg.isMe
-                ? "bg-blue-900/30 border border-blue-800/50"
-                : "bg-gray-900 border border-gray-800"
+                ? "bg-blue-50 border border-blue-200"
+                : "bg-white border border-gray-200"
             }`}
           >
-            <div className="flex items-center justify-between px-3 py-1.5 border-b border-gray-800/50">
-              <span className="text-xs text-gray-500">
+            <div className="flex items-center justify-between px-3 py-1.5 border-b border-gray-100">
+              <span className="text-xs text-gray-400">
                 {msg.isMe ? "You" : "Peer"} &middot; {formatTime(msg.timestamp)}
               </span>
               <button
                 onClick={() => copyText(msg.text, i)}
-                className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
+                className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
               >
                 {copied === i ? "Copied!" : "Copy"}
               </button>
             </div>
-            <pre className="px-3 py-2 text-sm font-mono whitespace-pre-wrap break-words overflow-x-auto">
+            <pre className="px-3 py-2 text-sm font-mono whitespace-pre-wrap break-words overflow-x-auto text-gray-800">
               {msg.text}
             </pre>
           </div>
@@ -311,9 +311,9 @@ export default function Room() {
       </div>
 
       {/* Input Area */}
-      <div className="shrink-0 p-3 bg-gray-900 border-t border-gray-800">
+      <div className="shrink-0 p-3 bg-white border-t border-gray-200">
         {error && messages.length > 0 && (
-          <p className="text-red-400 text-xs mb-2">{error}</p>
+          <p className="text-red-500 text-xs mb-2">{error}</p>
         )}
         <div className="flex gap-2">
           <textarea
@@ -322,26 +322,26 @@ export default function Room() {
             onKeyDown={handleKeyDown}
             placeholder="Paste text or code here..."
             rows={3}
-            className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm font-mono resize-none focus:outline-none focus:border-blue-500 transition-colors"
+            className="flex-1 bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 text-sm font-mono resize-none focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors"
             style={{ whiteSpace: "pre-wrap", tabSize: 4 }}
           />
           <div className="flex flex-col gap-2">
             <button
               onClick={handleSend}
               disabled={!input.trim() || sending}
-              className="bg-blue-600 hover:bg-blue-500 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium px-4 rounded-lg transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed text-white text-sm font-medium px-4 rounded-lg transition-colors"
             >
               Send
             </button>
             <button
               onClick={() => setInput("")}
-              className="bg-gray-700 hover:bg-gray-600 text-gray-300 text-sm px-4 rounded-lg transition-colors"
+              className="bg-gray-100 hover:bg-gray-200 text-gray-600 text-sm px-4 rounded-lg border border-gray-300 transition-colors"
             >
               Clear
             </button>
           </div>
         </div>
-        <p className="text-gray-600 text-xs mt-1.5">
+        <p className="text-gray-400 text-xs mt-1.5">
           Ctrl+Enter to send &middot; End-to-end encrypted
         </p>
       </div>
